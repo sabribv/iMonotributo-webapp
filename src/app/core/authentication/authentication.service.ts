@@ -22,10 +22,12 @@ export class AuthenticationService {
                 })
             );
         } finally {
+            const currentPerson = user?.personas ? user.personas[0] : undefined;
             this.store.dispatch(
                 UserAuthenticationActions.login({
                     user: {
                         isAuthenticated: !!user,
+                        currentPerson,
                         user,
                     },
                 })

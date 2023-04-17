@@ -4,6 +4,14 @@ import { Store } from '@ngrx/store';
 import { AuthenticatedUser } from '../../shared/models/authenticated-user.model';
 import { Observable } from 'rxjs';
 
+/* TODO:
+      * Logo vectorizado
+      * Dropdown para elegir current persona
+      * Menu de navegacion
+      * Responsiveness
+ */
+
+
 @Component({
     selector: 'app-main-layout',
     templateUrl: './main-layout.component.html',

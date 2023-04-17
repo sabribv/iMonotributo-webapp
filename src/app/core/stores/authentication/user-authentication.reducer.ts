@@ -4,6 +4,7 @@ import { AuthenticatedUser } from '../../../shared/models/authenticated-user.mod
 
 export const initialState: AuthenticatedUser = {
     isAuthenticated: false,
+    currentPerson: undefined,
     user: undefined,
 };
 

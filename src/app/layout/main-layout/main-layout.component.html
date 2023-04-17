@@ -1,5 +1,20 @@
-<p>main-layout works!</p>
-<ng-container *ngIf="authentication$ | async as authetication">
-    <div>{{ authetication.isAuthenticated }}</div>
-    <div>{{ authetication.user?.username }}</div>
-</ng-container>
+<mat-sidenav-container class="page-container">
+    <mat-sidenav class="sidenav" mode="side" opened
+        ><ng-container *ngIf="authentication$ | async as authentication">
+            <div class="header" *ngIf="authentication.isAuthenticated">
+                <span class="logo">
+                  <img src="assets/images/logo.jpg" width="100%" height="auto">
+                </span>
+                <div class="user">
+                    <span class="avatar">E</span>
+                    <span *ngIf="authentication.currentPerson as currentPerson"
+                        >{{ currentPerson.firstName }} {{ currentPerson.lastName }}</span
+                    >
+                </div>
+            </div>
+        </ng-container></mat-sidenav
+    >
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
