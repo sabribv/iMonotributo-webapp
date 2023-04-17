@@ -1,1 +1,5 @@
 <p>main-layout works!</p>
+<ng-container *ngIf="authentication$ | async as authetication">
+    <div>{{ authetication.isAuthenticated }}</div>
+    <div>{{ authetication.user?.username }}</div>
+</ng-container>

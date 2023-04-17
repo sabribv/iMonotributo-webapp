@@ -1,9 +1,11 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import {AuthenticationService} from "./authentication/authentication.service";
+import { AuthenticationService } from './authentication/authentication.service';
+import { StoreModule } from '@ngrx/store';
+import { userAuthenticationReducer } from './stores/authentication/user-authentication.reducer';
 
 @NgModule({
-    imports: [HttpClientModule],
+    imports: [HttpClientModule, StoreModule.forRoot({ authentication: userAuthenticationReducer })],
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
@@ -15,9 +17,7 @@ export class CoreModule {
     static forRoot(): ModuleWithProviders<CoreModule> {
         return {
             ngModule: CoreModule,
-            providers: [
-              AuthenticationService
-            ],
+            providers: [AuthenticationService],
         };
     }
 }

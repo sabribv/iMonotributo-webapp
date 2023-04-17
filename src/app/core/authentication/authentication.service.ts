@@ -2,19 +2,34 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ENDPOINTS } from '../constants/endpoints';
-import { AuthenticatedUser } from '../../shared/models/authenticated-user.model';
 import { lastValueFrom } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { UserAuthenticationActions } from '../stores/authentication/user-authentication.actions';
+import { User } from '../../shared/models/user.model';
 
 @Injectable()
 export class AuthenticationService {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private store: Store) {}
 
-    async login(username: string, provider: string) {
-        const user = await lastValueFrom(
-            this.httpClient.post<AuthenticatedUser>(`${environment.apiUrl}${ENDPOINTS.api.login}`, {
-                username,
-                provider,
-            })
-        );
+    async login(username: string, provider: string): Promise<void> {
+        let user = undefined;
+
+        try {
+            user = await lastValueFrom(
+                this.httpClient.post<User>(`${environment.apiUrl}${ENDPOINTS.api.login}`, {
+                    email: username,
+                    provider,
+                })
+            );
+        } finally {
+            this.store.dispatch(
+                UserAuthenticationActions.login({
+                    user: {
+                        isAuthenticated: !!user,
+                        user,
+                    },
+                })
+            );
+        }
     }
 }

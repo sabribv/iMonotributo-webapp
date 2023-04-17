@@ -1,8 +1,6 @@
-import { Persona } from './persona.model';
+import { User } from './user.model';
 
 export interface AuthenticatedUser {
-    id: any;
-    username: string;
-    provider: string;
-    personas: Persona[];
+    isAuthenticated: boolean;
+    user?: User;
 }
