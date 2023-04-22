@@ -1,0 +1,72 @@
+@import 'src/assets/styles/variables';
+
+:host {
+    @mixin text-uppercase-mixin {
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .page-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        .sidenav {
+            background: $grey-background-color;
+            border-right: $divider-color 1px solid;
+            width: 300px;
+
+            .header {
+                padding: 30px;
+                border-bottom: $divider-color 1px solid;
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .user {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                align-items: center;
+                @include text-uppercase-mixin;
+
+                .avatar {
+                    min-width: 50px;
+                    min-height: 50px;
+                    border-radius: 50%;
+                    border: $brand-color 1.5px solid;
+                    background-color: $avatar-background-color;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .nav-list {
+            @include text-uppercase-mixin;
+
+            a {
+                padding: 10px 15px;
+            }
+        }
+    }
+
+    .toolbar {
+        background-color: $brand-color;
+        padding-top: 10px;
+        padding-bottom: 0;
+        height: $app-top-nav-height;
+
+        mat-icon {
+            color: #fff;
+        }
+
+        .spacer {
+            flex: 1 1 auto;
+        }
+    }
+}

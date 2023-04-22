@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+@use 'palette-helper';
+@import './variables';
+
+@include mat.core();
+
+$app-light-theme-primary-palette: mat.define-palette(mat.$teal-palette, 500);
+$app-light-theme-accent-palette: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
+
+$app-light-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $app-light-theme-primary-palette,
+            accent: $app-light-theme-accent-palette,
+        ),
+        density: 0,
+    )
+);
+$app-theme: palette-helper.modify-foreground($app-light-theme, $font-color);
+
+// Emit theme-dependent styles for common features used across multiple components.
+@include mat.core-theme($app-theme);
+@include mat.all-component-themes($app-theme);

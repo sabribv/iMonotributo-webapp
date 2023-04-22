@@ -1,0 +1,55 @@
+<ng-container *appDeviceRenderer="deviceTypes.mobile">
+    <mat-toolbar class="toolbar">
+        <button mat-icon-button aria-label="App menu" (click)="onSidenavToggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      <span class="spacer"></span>
+      <img src="assets/images/topnav-logo.webp" height="60px" width="auto" />
+    </mat-toolbar>
+</ng-container>
+
+<mat-sidenav-container class="page-container" [style.marginTop.px]="currentDeviceType == deviceTypes.mobile ? 70 : 0">
+    <mat-sidenav
+        #appSideNav
+        class="sidenav"
+        [mode]="currentDeviceType == deviceTypes.mobile ? 'over' : 'side'"
+        [fixedInViewport]="currentDeviceType == deviceTypes.mobile" fixedTopGap="70"
+        ><ng-container *ngIf="authentication$ | async as authentication">
+            <div class="header" *ngIf="authentication.isAuthenticated">
+                <div>
+                    <img src="assets/images/logo.webp" width="100%" height="auto" />
+                </div>
+                <div class="user" *ngIf="authentication.currentPerson as currentPerson">
+                    <span class="avatar">{{ currentPerson.currentCategory.name }}</span>
+                    <span>{{ currentPerson.firstName }} {{ currentPerson.lastName }}</span>
+                    <button
+                        mat-icon-button
+                        *ngIf="(authentication.user?.personas?.length || 0) > 1"
+                        [matMenuTriggerFor]="personasMenu"
+                    >
+                        <mat-icon>arrow_drop_down</mat-icon>
+                    </button>
+                    <mat-menu #personasMenu="matMenu" xPosition="after">
+                        <button
+                            mat-menu-item
+                            *ngFor="let persona of authentication.user?.personas ?? []"
+                            (click)="onPersonSelectionChange(persona)"
+                        >
+                            <span> {{ persona.firstName }} {{ persona.lastName }} </span>
+                            <mat-icon>
+                                {{ persona._id === currentPerson._id ? 'check' : '' }}
+                            </mat-icon>
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </ng-container>
+        <mat-nav-list class="nav-list">
+            <a mat-list-item routerLink=".">Inicio</a>
+            <a mat-list-item routerLink=".">Cerrar sesión</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
