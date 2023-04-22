@@ -10,5 +10,9 @@ export const initialState: AuthenticatedUser = {
 
 export const userAuthenticationReducer = createReducer(
     initialState,
-    on(UserAuthenticationActions.login, (_state, { user }) => user)
+    on(UserAuthenticationActions.login, (_state, { user }) => user),
+    on(UserAuthenticationActions.changecurrentpersona, (state, { persona }) => ({
+        ...state,
+        currentPerson: persona,
+    }))
 );

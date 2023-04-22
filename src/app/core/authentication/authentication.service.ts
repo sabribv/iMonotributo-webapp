@@ -6,6 +6,7 @@ import { lastValueFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { UserAuthenticationActions } from '../stores/authentication/user-authentication.actions';
 import { User } from '../../shared/models/user.model';
+import { Persona } from '../../shared/models/persona.model';
 
 @Injectable()
 export class AuthenticationService {
@@ -33,5 +34,13 @@ export class AuthenticationService {
                 })
             );
         }
+    }
+
+    changeCurrentPersona(persona: Persona) {
+        this.store.dispatch(
+            UserAuthenticationActions.changecurrentpersona({
+                persona,
+            })
+        );
     }
 }
